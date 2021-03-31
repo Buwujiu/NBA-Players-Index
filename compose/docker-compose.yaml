@@ -1,0 +1,16 @@
+services:
+  mongodb:
+    image: 'bitnami/mongodb:4.0'
+    ports:
+      - '27027:27017'
+    volumes:
+      - 'mongodb_data:/bitnami'
+    environment:
+      MONGODB_USERNAME: admin
+      MONGODB_PASSWORD: password
+      MONGODB_DATABASE: nba
+      MONGODB_ROOT_PASSWORD: password
+volumes:
+  mongodb_data:
+    name: appdb_db_vol_1
+    driver: local
