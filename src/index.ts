@@ -1,13 +1,24 @@
-import { CSVManager, Options, DataSet, DataModel, Value } from './CSVManager';
+import { PlayerData } from './type';
 
-const options: Options = {
-    dataColumns: ['player_name'],
-    labelColumns: ['player_name'],
-    converters: {},
-    shuffle: false,
-    splitTest: 1.0
-  };
-  const csvManager = new CSVManager('./players_10.csv', options);
+import fs from 'fs';
+import csv from 'csv-parser';
+const players : PlayerData[] = [];
 
-  const dataset = csvManager.loadCSV();
-  console.log(JSON.stringify(dataset))
+fs.createReadStream('/assets/players.csv')
+  .pipe(csv())
+  .on('data', (row: PlayerData) => {
+
+    // const username = generateUsername(row.Firstname, row.Surname);
+    // const password = randomWords(3).join("-");
+
+    // const user = {
+    //     username,
+    //     firstname: row.Firstname,
+    //     surname: row.Surname,
+    //     roles: row.Roles,
+    //     password
+    // }
+    players.push(row);
+  }).on('end', function () {
+      console.log(JSON.stringify(players));
+  });

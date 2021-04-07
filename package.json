@@ -4,11 +4,12 @@
   "description": "",
   "main": "src",
   "scripts": {
-    "start": "node .",
+    "start": "node dist/index.js",
     "lint": "eslint .",
     "build": "rm -rf dist && tsc && cp -r src/assets dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "NODE_PATH=src ts-node src/index.ts"
+    "debug": "npm run build && sleep 3 && npm run watch-debug",
+    "watch-debug": "nodemon --delay 1000ms --inspect --watch 'src/*.ts' --exec node -r ts-node/register ./src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -24,19 +25,19 @@
   },
   "homepage": "https://github.com/Buwujiu/NBA-Players-Index#readme",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "loadash": "^1.0.0",
-    "path": "^0.12.7",
-    "shuffle-seed": "^1.1.6"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.35",
-    "@types/shuffle-seed": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "eslint": "^7.23.0",
+    "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
   }
